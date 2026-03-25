@@ -92,3 +92,18 @@ input, select {
     border-radius: 8px;
     margin-bottom: 15px;
 }
+/* تحسينات إضافية للهوية البصرية */
+.status-badge { padding: 5px 10px; border-radius: 20px; font-size: 12px; }
+.bg-success { background: rgba(0, 255, 136, 0.2); color: #00ff88; }
+.bg-danger { background: rgba(255, 68, 68, 0.2); color: #ff4444; }
+
+.modal-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid var(--primary-cyan);
+}
+.full-width { grid-column: span 2; }
