@@ -1,0 +1,34 @@
+<div class="container">
+    <h1>إدارة الغرف والفندق</h1>
+    <div class="card">
+        <h3>إضافة غرفة جديدة للسيستم</h3>
+        <div class="modal-form">
+            <input type="text" id="rNum" placeholder="رقم الغرفة (مثال: 101)">
+            <select id="rType">
+                <option value="Single">Single - فردية</option>
+                <option value="Double">Double - زوجية</option>
+                <option value="Suite">Suite - جناح</option>
+            </select>
+            <input type="number" id="rPrice" placeholder="سعر الليلة (ج.م)">
+            <button class="full-width" onclick="addNewRoom()">إضافة الغرفة لقاعدة البيانات</button>
+        </div>
+    </div>
+</div>
+
+<script>
+async function addNewRoom() {
+    const data = {
+        sheet: "Rooms",
+        action: "add",
+        data: {
+            id: Date.now().toString(),
+            room_number: document.getElementById('rNum').value,
+            type: document.getElementById('rType').value,
+            price: document.getElementById('rPrice').value,
+            status: "Available"
+        }
+    };
+    await fetch('YOUR_API_URL', { method: 'POST', body: JSON.stringify(data) });
+    alert("تم تسجيل الغرفة بنجاح!");
+}
+</script>
