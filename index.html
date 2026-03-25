@@ -1,243 +1,50 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fateen Hotel OS | نظام إدارة الفنادق</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-color: #0a0a0a;
-            --card-bg: #141414;
-            --primary-cyan: #00f2fe;
-            --text-color: #e0e0e0;
-            --shadow-glow: 0 0 15px rgba(0, 242, 254, 0.3);
-        }
-
-        body {
-            margin: 0;
-            font-family: 'Cairo', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            display: flex;
-            height: 100vh;
-            overflow: hidden;
-        }
-
-        /* Sidebar Style */
-        .sidebar {
-            width: 250px;
-            background-color: var(--card-bg);
-            border-left: 1px solid #333;
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-        }
-
-        .sidebar h2 {
-            color: var(--primary-cyan);
-            text-align: center;
-            text-shadow: 0 0 10px var(--primary-cyan);
-            font-size: 22px;
-            margin-bottom: 30px;
-        }
-
-        .nav-item {
-            padding: 15px;
-            margin: 5px 0;
-            cursor: pointer;
-            border-radius: 8px;
-            transition: 0.3s;
-            display: flex;
-            align-items: center;
-        }
-
-        .nav-item:hover, .nav-item.active {
-            background: rgba(0, 242, 254, 0.1);
-            color: var(--primary-cyan);
-            box-shadow: var(--shadow-glow);
-        }
-
-        /* Main Content */
-        .main-content {
-            flex: 1;
-            padding: 30px;
-            overflow-y: auto;
-        }
-
-        .page { display: none; }
-        .page.active { display: block; animation: fadeIn 0.5s; }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        /* Dashboard Cards */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-        }
-
-        .stat-card {
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 12px;
-            border: 1px solid #333;
-            text-align: center;
-        }
-
-        .stat-card h3 { color: var(--primary-cyan); margin: 0; }
-        .stat-card p { font-size: 24px; font-weight: bold; margin: 10px 0 0; }
-
-        /* Rooms Grid */
-        .rooms-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .room-box {
-            background: #1a1a1a;
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            border: 1px solid #333;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .room-box.available { border-top: 4px solid #2ecc71; }
-        .room-box.occupied { border-top: 4px solid #e74c3c; }
-        .room-box:hover { box-shadow: var(--shadow-glow); transform: translateY(-5px); }
-
-        /* Form Style */
-        input, select, button {
-            background: #222;
-            border: 1px solid #444;
-            color: white;
-            padding: 10px;
-            margin: 10px 0;
-            width: 100%;
-            border-radius: 5px;
-        }
-
-        button {
-            background: var(--primary-cyan);
-            color: black;
-            font-weight: bold;
-            cursor: pointer;
-            border: none;
-        }
-
-        button:hover { opacity: 0.8; box-shadow: var(--shadow-glow); }
-        
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { padding: 12px; text-align: right; border-bottom: 1px solid #333; }
-        th { color: var(--primary-cyan); }
-    </style>
+    <title>لوحة التحكم | Fateen OS</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-
     <div class="sidebar">
-        <h2>FATEEN OS</h2>
-        <div class="nav-item active" onclick="showPage('dashboard')">لوحة التحكم</div>
-        <div class="nav-item" onclick="showPage('frontdesk')">الاستقبال</div>
-        <div class="nav-item" onclick="showPage('reservations')">الحجوزات</div>
-        <div class="nav-item" onclick="showPage('crm')">العملاء</div>
+        <h2>FATEEN HOTEL</h2>
+        <a href="dashboard.html" class="nav-link active">الرئيسية</a>
+        <a href="frontdesk.html" class="nav-link">الاستقبال</a>
+        <a href="reservations.html" class="nav-link">الحجوزات</a>
+        <a href="crm.html" class="nav-link">العملاء</a>
     </div>
-
-    <div class="main-content">
-        <div id="dashboard" class="page active">
-            <h1>ملخص اليوم</h1>
-            <div class="stats-grid">
-                <div class="stat-card"><h3>الغرف المتاحة</h3><p id="avail-count">0</p></div>
-                <div class="stat-card"><h3>المشغولة</h3><p id="occ-count">0</p></div>
-                <div class="stat-card"><h3>وصول اليوم</h3><p>5</p></div>
+    <div class="container">
+        <h1>مرحباً بك في نظام الإدارة</h1>
+        <div style="display: flex; gap: 20px;">
+            <div class="card" style="flex: 1;">
+                <h3>نسبة الإشغال اليوم</h3>
+                <h2 style="color: var(--primary-cyan);">75%</h2>
+            </div>
+            <div class="card" style="flex: 1;">
+                <h3>إيرادات المتوقعة</h3>
+                <h2 style="color: var(--primary-cyan);">12,500 ج.م</h2>
             </div>
         </div>
-
-        <div id="frontdesk" class="page">
-            <h1>خريطة الغرف</h1>
-            <div id="rooms-container" class="rooms-grid">
-                </div>
-        </div>
-
-        <div id="reservations" class="page">
-            <h1>إضافة حجز جديد</h1>
-            <div style="max-width: 500px; background: var(--card-bg); padding: 20px; border-radius: 10px;">
-                <input type="text" id="guestName" placeholder="اسم النزيل">
-                <input type="text" id="roomNum" placeholder="رقم الغرفة">
-                <input type="date" id="checkIn">
-                <button onclick="addBooking()">تأكيد الحجز</button>
-            </div>
-        </div>
-
-        <div id="crm" class="page">
-            <h1>سجل العملاء</h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th>الاسم</th>
-                        <th>الهاتف</th>
-                        <th>الجنسية</th>
-                    </tr>
-                </thead>
-                <tbody id="guests-table"></tbody>
-            </table>
+        <div class="card">
+            <h3>مخطط الحجوزات الأسبوعي</h3>
+            <canvas id="myChart" height="100"></canvas>
         </div>
     </div>
-
     <script>
-        const API_URL = "https://script.google.com/macros/s/AKfycbyt2yGPUFMyuqiRMt0Hv6H85eGHp7AXmR3s_04BQXtbjnPZ-7ESHsTPbM_rI3aZN_L2Bw/exec";
-
-        function showPage(pageId) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
-            event.currentTarget.classList.add('active');
-            
-            if(pageId === 'frontdesk') loadRooms();
-            if(pageId === 'crm') loadGuests();
-        }
-
-        async function loadRooms() {
-            const res = await fetch(`${API_URL}?sheet=Rooms`);
-            const data = await res.json();
-            const container = document.getElementById('rooms-container');
-            container.innerHTML = "";
-            
-            data.forEach(room => {
-                const div = document.createElement('div');
-                div.className = `room-box ${room.status.toLowerCase() === 'available' ? 'available' : 'occupied'}`;
-                div.innerHTML = `<strong>${room.room_number}</strong><br><small>${room.type}</small>`;
-                container.appendChild(div);
-            });
-        }
-
-        async function loadGuests() {
-            const res = await fetch(`${API_URL}?sheet=Guests`);
-            const data = await res.json();
-            const table = document.getElementById('guests-table');
-            table.innerHTML = data.map(g => `<tr><td>${g.full_name}</td><td>${g.phone}</td><td>${g.nationality}</td></tr>`).join('');
-        }
-
-        async function addBooking() {
-            const bookingData = {
-                sheet: "Bookings",
-                action: "add",
-                data: {
-                    guest_name: document.getElementById('guestName').value,
-                    room_id: document.getElementById('roomNum').value,
-                    check_in: document.getElementById('checkIn').value
-                }
-            };
-
-            await fetch(API_URL, {
-                method: "POST",
-                body: JSON.stringify(bookingData)
-            });
-            alert("تم إضافة الحجز بنجاح");
-        }
+        const ctx = document.getElementById('myChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['السبت', 'الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة'],
+                datasets: [{
+                    label: 'الحجوزات',
+                    data: [12, 19, 10, 15, 22, 30, 25],
+                    borderColor: '#00f2fe',
+                    tension: 0.4
+                }]
+            }
+        });
     </script>
 </body>
 </html>
