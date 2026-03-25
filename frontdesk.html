@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>الاستقبال | خريطة الغرف</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .rooms-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 20px; }
+        .room-card { background: #1a1a1a; padding: 20px; border-radius: 12px; text-align: center; border: 1px solid #333; position: relative; }
+        .available { border-top: 5px solid #00ff88; }
+        .occupied { border-top: 5px solid #ff4444; }
+        .cleaning { border-top: 5px solid #ffbb00; }
+        .room-card span { display: block; margin-top: 10px; font-size: 0.8em; color: #888; }
+    </style>
+</head>
+<body>
+    <div class="sidebar">... (نفس السايدبار) ...</div>
+    <div class="container">
+        <h1>حالة الغرف الحالية</h1>
+        <div class="rooms-grid" id="roomsDisplay">
+            <div class="room-card available"><h3>101</h3><span>متاحة - Double</span></div>
+            <div class="room-card occupied"><h3>102</h3><span>مشغولة - Suite</span></div>
+        </div>
+    </div>
+</body>
+</html>
