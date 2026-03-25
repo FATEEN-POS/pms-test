@@ -22,5 +22,35 @@
             <div class="room-card occupied"><h3>102</h3><span>مشغولة - Suite</span></div>
         </div>
     </div>
+    <div class="card">
+    <h3>إضافة خدمات إضافية على الغرفة</h3>
+    <div class="modal-form">
+        <input type="text" id="targetRoom" placeholder="رقم الغرفة">
+        <select id="serviceType">
+            <option value="Laundry">مغسلة</option>
+            <option value="Restaurant">مطعم</option>
+            <option value="MiniBar">ميني بار</option>
+        </select>
+        <input type="number" id="servicePrice" placeholder="التكلفة">
+        <button onclick="addService()">إضافة للفاتورة</button>
+    </div>
+</div>
+
+<script>
+async function addService() {
+    const data = {
+        sheet: "Services", // تأكد من وجود صفحة بهذا الاسم في الشيت
+        action: "add",
+        data: {
+            room_id: document.getElementById('targetRoom').value,
+            service: document.getElementById('serviceType').value,
+            amount: document.getElementById('servicePrice').value,
+            date: new Date().toLocaleDateString()
+        }
+    };
+    await fetch('YOUR_API_URL', { method: 'POST', body: JSON.stringify(data) });
+    alert("تمت إضافة الخدمة لحساب الغرفة");
+}
+</script>
 </body>
 </html>
