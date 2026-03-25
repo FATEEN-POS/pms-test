@@ -1,41 +1,44 @@
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <title>إدارة الحجوزات</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="sidebar">...</div>
-    <div class="container">
-        <h1>تسجيل حجز جديد</h1>
-        <div class="card" style="max-width: 600px;">
-            <div style="display: flex; flex-direction: column;">
-                <label>اسم العميل</label>
-                <input type="text" id="guestName" placeholder="أدخل اسم النزيل">
-                
-                <label>نوع الغرفة</label>
-                <select id="roomType">
-                    <option>Single</option>
-                    <option>Double</option>
-                    <option>Suite</option>
-                </select>
-
-                <label>تاريخ الوصول</label>
-                <input type="date" id="checkIn">
-                
-                <label>تاريخ المغادرة</label>
-                <input type="date" id="checkOut">
-
-                <button onclick="submitBooking()">تأكيد وتسجيل في الشيت</button>
-            </div>
+<div class="container">
+    <h1>تسجيل حجز جديد (Check-in)</h1>
+    <div class="card">
+        <div class="modal-form">
+            <input type="text" id="gName" placeholder="اسم النزيل بالكامل" class="full-width">
+            <input type="text" id="gID" placeholder="رقم البطاقة / الباسبورت">
+            <input type="text" id="gPhone" placeholder="رقم الموبايل">
+            <input type="text" id="rSelected" placeholder="رقم الغرفة المحجوزة">
+            <input type="number" id="nights" placeholder="عدد الليالي">
+            <input type="date" id="checkInDate">
+            <button class="full-width" onclick="confirmBooking()">تأكيد الحجز وتسكين النزيل</button>
         </div>
     </div>
-    <script>
-        async function submitBooking() {
-            // كود الـ Fetch لإرسال البيانات للرابط بتاعك (POST)
-            alert('تم إرسال البيانات للجوجل شيت بنجاح');
+</div>
+
+<script>
+async function confirmBooking() {
+    const bookingId = "BK-" + Math.floor(Math.random() * 1000);
+    const payload = {
+        sheet: "Bookings",
+        action: "add",
+        data: {
+            id: bookingId,
+            guest_name: document.getElementById('gName').value,
+            room_id: document.getElementById('rSelected').value,
+            check_in: document.getElementById('checkInDate').value,
+            nights: document.getElementById('nights').value,
+            status: "Confirmed"
         }
-    </script>
-</body>
-</html>
+    };
+    // إرسال البيانات
+    await fetch('YOUR_API_URL', { method: 'POST', body: JSON.stringify(payload) });
+    
+    // تحديث حالة الغرفة تلقائياً لـ Occupied
+    const updateRoom = {
+        sheet: "Rooms",
+        action: "update",
+        data: { id: document.getElementById('rSelected').value, status: "Occupied" }
+    };
+    await fetch('YOUR_API_URL', { method: 'POST', body: JSON.stringify(updateRoom) });
+    
+    alert("تم التسكين بنجاح وتحديث حالة الغرفة!");
+}
+</script>
