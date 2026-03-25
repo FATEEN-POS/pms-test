@@ -1,0 +1,94 @@
+/* Global Styles - Fateen Digital Solution */
+:root {
+    --bg-color: #050505;
+    --card-bg: #111111;
+    --primary-cyan: #00f2fe;
+    --text-color: #ffffff;
+    --accent-glow: 0 0 20px rgba(0, 242, 254, 0.4);
+    --border-color: #222;
+}
+
+body {
+    margin: 0;
+    font-family: 'Cairo', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    direction: rtl;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 260px;
+    height: 100vh;
+    background: var(--card-bg);
+    border-left: 1px solid var(--border-color);
+    position: fixed;
+    padding: 20px;
+}
+
+.sidebar h2 {
+    color: var(--primary-cyan);
+    text-shadow: var(--accent-glow);
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 20px;
+}
+
+.nav-link {
+    display: block;
+    padding: 15px;
+    color: #bbb;
+    text-decoration: none;
+    margin: 10px 0;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.nav-link:hover, .nav-link.active {
+    background: rgba(0, 242, 254, 0.1);
+    color: var(--primary-cyan);
+    box-shadow: var(--accent-glow);
+}
+
+/* Main Content Area */
+.container {
+    margin-right: 280px;
+    padding: 40px;
+    width: 100%;
+}
+
+/* Cards & Elements */
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 20px;
+}
+
+h1 { border-right: 5px solid var(--primary-cyan); padding-right: 15px; }
+
+table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+th { color: var(--primary-cyan); text-align: right; padding: 15px; border-bottom: 2px solid var(--border-color); }
+td { padding: 15px; border-bottom: 1px solid var(--border-color); }
+
+button {
+    background: var(--primary-cyan);
+    color: #000;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: var(--accent-glow);
+}
+
+input, select {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
